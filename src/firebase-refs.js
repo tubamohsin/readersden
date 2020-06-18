@@ -1,30 +1,31 @@
 // TODO: UPDATE THIS FUNCTION AFTER INSTALLING
 // THE storage-resize-images EXTENSION
-// export function getImageRef(storage, imagePath) {
-//   return {
-//     original: storage().ref(imagePath)
-//   };
-// }
-
 
 export function getImageRef(storage, imagePath) {
-  const xDimension = 200;
-  const yDimension = 200;
-
-  // find the '.' in 'file.jpg', 'file.png', etc
-  const fileExtensionIndex = imagePath.lastIndexOf('.');
-
-  const pathNameWithoutExtension = imagePath.substring(0, fileExtensionIndex);
-  const dimensions = `${xDimension}x${yDimension}`;
-  const fileExtension = imagePath.substring(fileExtensionIndex);
-
   return {
-    resized: storage().ref(
-      `${pathNameWithoutExtension}_${dimensions}${fileExtension}`
-    ),
     original: storage().ref(imagePath)
   };
 }
+
+
+// export function getImageRef(storage, imagePath) {
+//   const xDimension = 200;
+//   const yDimension = 200;
+
+//   // find the '.' in 'file.jpg', 'file.png', etc
+//   const fileExtensionIndex = imagePath.lastIndexOf('.');
+
+//   const pathNameWithoutExtension = imagePath.substring(0, fileExtensionIndex);
+//   const dimensions = `${xDimension}x${yDimension}`;
+//   const fileExtension = imagePath.substring(fileExtensionIndex);
+
+//   return {
+//     resized: storage().ref(
+//       `${pathNameWithoutExtension}_${dimensions}${fileExtension}`
+//     ),
+//     original: storage().ref(imagePath)
+//   };
+// }
 
 export function getSellerRef(database, sellerId) {
   return database().ref(`sellers/${sellerId}`);
