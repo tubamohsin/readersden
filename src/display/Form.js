@@ -9,7 +9,7 @@ import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
-
+import FormatQuote from "@material-ui/icons/FormatQuote";
 
 const useStyles = makeStyles(theme => ({
   appBar: {},
@@ -78,14 +78,14 @@ export default function Form({
   qoutes
 }) {
   // qoutes = [];
-  const [qoutes, setQoutes] = useState([])
-  
+  const [qoutes, setQoutes] = useState([]);
+
   const classes = useStyles();
   const setQuotes = e => {
     if (e.key == "Enter") {
       setQoutes([...qoutes, e.target.value]);
       // qoutes.push(e.target.value);
-      e.target.value = '';
+      e.target.value = "";
       console.log(qoutes);
     }
   };
@@ -118,20 +118,25 @@ export default function Form({
         label="Quote"
         margin="normal"
         value={quote}
-        onKeyDown={e => { setQuotes(e)}}
+        onKeyDown={e => {
+          setQuotes(e);
+        }}
         className={classes.formField}
         variant="filled"
       />
-    
-      <List>
-        { console.log('quotes',qoutes)}
-         { qoutes.map(item => (
-           <ListItem>
-            <ListItemText primary={`Item ${item}`} />
+
+      <List style={{width: '300px'}}>
+        {qoutes.map(item => (
+          <ListItem>
+            <ListItemIcon>
+              <FormatQuote style={{ transform: "rotate(180deg)" }} />
+            </ListItemIcon>
+            <ListItemText primary={`${item}`} />
+            <ListItemIcon>
+              <FormatQuote />
+            </ListItemIcon>
           </ListItem>
-         )
-          
-        )}
+        ))}
       </List>
 
       <input
