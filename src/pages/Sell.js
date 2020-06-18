@@ -98,22 +98,25 @@ function Form(props) {
   const draft = useDatabaseObject(draftRef);
 
   const draftContents = draft.snapshot.val();
-  const { title, askingPrice, image, description, quote, qoutes } = draftContents;
+  const { title, askingPrice, image, description, qoutes } = draftContents;
 
   const setTitle = updateDraftField(draftRef, 'title');
   const setAskingPrice = updateDraftField(draftRef, 'askingPrice');
   const setImage = updateDraftField(draftRef, 'image');
- const setQuote = updateDraftField(draftRef, 'qoutes');
+  const setQuotes = updateDraftField(draftRef, 'qoutes');
   const [imageIsUploading, setIsUploading] = React.useState(false);
-let qoutes = [];
-  const setQuotes = e => {
-    if (e.key == "Enter") {
-      qoutes.push(e.target.value);
-      e.target.value = '';
-      console.log(qoutes);
-      setQuote(qoutes)
-    }
-  };
+  // const [qoutes] = React.useState([]);
+
+  // const setQuotesM = e => {
+  //   // let q = updateDraftField(draftRef, 'qoutes')
+  //   // if (e.key == "Enter") {
+  //     qoutes = [...qoutes, e];
+  //     // qoutes.push(e.target.value);
+  //     // e.target.value = "";
+  //     setQuotes(qoutes)
+  //     console.log('sell',qoutes, e);
+  //   // }
+  // };
   const uploadAndSetImage = newImageFile => {
     setIsUploading(true);
     const newImageFileName = `readersden/${currentUser.uid}-${newImageFile.name}`;
@@ -130,6 +133,7 @@ let qoutes = [];
 
   const postItem = async () => {
     const newItemRef = getNewSaleItemRef(database);
+
     const promises = [
       sellerRef.update({
         name: currentUser.displayName,
@@ -138,6 +142,7 @@ let qoutes = [];
       newItemRef.set({
         title,
         image,
+        qoutes,
         description,
         seller: currentUser.uid
       })
@@ -183,7 +188,7 @@ let qoutes = [];
         text="Post"
         onClick={postItem}
         Icon={LibraryAddIcon}
-        disabled={!(title  && image && description)}
+        disabled={!(title  && image && description && qoutes)}
       />
 
    

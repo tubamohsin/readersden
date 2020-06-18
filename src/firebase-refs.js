@@ -1,10 +1,10 @@
 // TODO: UPDATE THIS FUNCTION AFTER INSTALLING
 // THE storage-resize-images EXTENSION
-export function getImageRef(storage, imagePath) {
-  return {
-    original: storage().ref(imagePath)
-  };
-}
+// export function getImageRef(storage, imagePath) {
+//   return {
+//     original: storage().ref(imagePath)
+//   };
+// }
 
 export function getSellerRef(database, sellerId) {
   return database().ref(`sellers/${sellerId}`);

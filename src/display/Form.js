@@ -66,6 +66,7 @@ export default function Form({
   title,
   setTitle,
   setQuotes,
+  setQuotesM,
   askingPrice,
   setAskingPrice,
   description,
@@ -78,17 +79,17 @@ export default function Form({
   qoutes
 }) {
   // qoutes = [];
-  const [qoutes, setQoutes] = useState([]);
+//  const [qoutes, setQoutes] = useState([]);
 
   const classes = useStyles();
-  const setQuotes = e => {
-    if (e.key == "Enter") {
-      setQoutes([...qoutes, e.target.value]);
-      // qoutes.push(e.target.value);
-      e.target.value = "";
-      console.log(qoutes);
-    }
-  };
+  // const setQuotes = e => {
+  //   if (e.key == "Enter") {
+  //     setQoutes([...qoutes, e.target.value]);
+  //     // qoutes.push(e.target.value);
+  //     e.target.value = "";
+  //     console.log('form',qoutes);
+  //   }
+  // };
   return (
     <Grid container direction="column" justify="flex-start" alignItems="center">
       <TextField
@@ -103,6 +104,7 @@ export default function Form({
       />
 
       <TextField
+      required
         id="standard-multiline-flexible"
         label="About"
         multiline
@@ -116,28 +118,14 @@ export default function Form({
       <TextField
         required
         label="Quote"
+        multiline
         margin="normal"
-        value={quote}
-        onKeyDown={e => {
-          setQuotes(e);
-        }}
+        value={qoutes}
+        onChange={e => 
+          setQuotes(e.target.value)}
         className={classes.formField}
         variant="filled"
       />
-
-      <List style={{width: '300px'}}>
-        {qoutes.map(item => (
-          <ListItem>
-            <ListItemIcon>
-              <FormatQuote style={{ transform: "rotate(180deg)" }} />
-            </ListItemIcon>
-            <ListItemText primary={`${item}`} />
-            <ListItemIcon>
-              <FormatQuote />
-            </ListItemIcon>
-          </ListItem>
-        ))}
-      </List>
 
       <input
         accept=".png, .jpg, .jpeg"

@@ -5,6 +5,13 @@ import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import React, { Suspense } from "react";
+import List from "@material-ui/core/List";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemIcon from "@material-ui/core/ListItemIcon";
+import ListItemText from "@material-ui/core/ListItemText";
+import FormatQuote from "@material-ui/icons/FormatQuote";
+import ShareIcon from '@material-ui/icons/Share';
+
 import {
   AuthCheck,
   useDatabaseObject,
@@ -132,7 +139,13 @@ function Details({ itemId }) {
 
   const itemRef = getForSaleItemRef(useFirebaseApp().database, itemId);
   const itemSnapshot = useDatabaseObject(itemRef);
-  const { title, image, description, seller } = itemSnapshot.snapshot.val();
+  const {
+    title,
+    image,
+    description,
+    seller,
+    qoutes
+  } = itemSnapshot.snapshot.val();
   const imageURL = useStorageDownloadURL(firebaseApp.storage().ref(image));
   return (
     <>
@@ -141,15 +154,29 @@ function Details({ itemId }) {
           display: "flex"
         }}
       >
-        <div style={{ flex: 1, margin: '15px' }}>
-          <Typography variant="h2">{title}</Typography>
+        <div style={{ flex: 1, margin: "15px" }}>
+          <Typography variant="h3">{title}
+          <ShareIcon  style={{'padding-left': '15px', 'padding-bottom': '10px', color: '#e62f54'}}/></Typography>
+          
+          <br/>
           <div className={classes.container}>
             <Typography variant="body1">{description}</Typography>
           </div>
+  
+          <ListItem>
+            <ListItemIcon>
+              <FormatQuote style={{ transform: "rotate(180deg)" }} />
+            </ListItemIcon>
+            <ListItemText primary={`${qoutes}`} />
+            <ListItemIcon>
+              <FormatQuote />
+            </ListItemIcon>
+          </ListItem>
+          <br/><br/>
           <SellerDetails sellerId={seller} />
         </div>
         <div style={{ flex: 1 }}>
-          <div style={{ width: "100%", margin: '15px' }}>
+          <div style={{ width: "100%", margin: "15px" }}>
             <img
               src={imageURL}
               alt="Some item"
