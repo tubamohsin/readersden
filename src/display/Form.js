@@ -4,7 +4,12 @@ import InputAdornment from "@material-ui/core/InputAdornment";
 import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import CloudUploadIcon from "@material-ui/icons/AddAPhoto";
-import React from "react";
+import React, { useState } from "react";
+import List from "@material-ui/core/List";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemIcon from "@material-ui/core/ListItemIcon";
+import ListItemText from "@material-ui/core/ListItemText";
+
 
 const useStyles = makeStyles(theme => ({
   appBar: {},
@@ -60,6 +65,7 @@ const useStyles = makeStyles(theme => ({
 export default function Form({
   title,
   setTitle,
+  setQuotes,
   askingPrice,
   setAskingPrice,
   description,
@@ -67,10 +73,22 @@ export default function Form({
   imageFileName,
   Image,
   setImage,
-  imageIsUploading
+  imageIsUploading,
+  quote,
+  qoutes
 }) {
+  // qoutes = [];
+  const [qoutes, setQoutes] = useState([])
+  
   const classes = useStyles();
-
+  const setQuotes = e => {
+    if (e.key == "Enter") {
+      setQoutes([...qoutes, e.target.value]);
+      // qoutes.push(e.target.value);
+      e.target.value = '';
+      console.log(qoutes);
+    }
+  };
   return (
     <Grid container direction="column" justify="flex-start" alignItems="center">
       <TextField
@@ -94,6 +112,28 @@ export default function Form({
         className={classes.formField}
         variant="filled"
       />
+
+      <TextField
+        required
+        label="Quote"
+        margin="normal"
+        value={quote}
+        onKeyDown={e => { setQuotes(e)}}
+        className={classes.formField}
+        variant="filled"
+      />
+    
+      <List>
+        { console.log('quotes',qoutes)}
+         { qoutes.map(item => (
+           <ListItem>
+            <ListItemText primary={`Item ${item}`} />
+          </ListItem>
+         )
+          
+        )}
+      </List>
+
       <input
         accept=".png, .jpg, .jpeg"
         className={classes.input}

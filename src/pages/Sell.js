@@ -92,19 +92,28 @@ function Form(props) {
   // draftId comes from Reach Router
   const { draftId } = props;
   const currentUser = useUser();
-
   const database = useFirebaseApp().database;
   const sellerRef = getSellerRef(database, currentUser.uid);
   const draftRef = getDraftItemRef(database, draftId);
   const draft = useDatabaseObject(draftRef);
 
   const draftContents = draft.snapshot.val();
-  const { title, askingPrice, image, description } = draftContents;
+  const { title, askingPrice, image, description, quote, qoutes } = draftContents;
 
   const setTitle = updateDraftField(draftRef, 'title');
   const setAskingPrice = updateDraftField(draftRef, 'askingPrice');
   const setImage = updateDraftField(draftRef, 'image');
+ const setQuote = updateDraftField(draftRef, 'qoutes');
   const [imageIsUploading, setIsUploading] = React.useState(false);
+let qoutes = [];
+  const setQuotes = e => {
+    if (e.key == "Enter") {
+      qoutes.push(e.target.value);
+      e.target.value = '';
+      console.log(qoutes);
+      setQuote(qoutes)
+    }
+  };
   const uploadAndSetImage = newImageFile => {
     setIsUploading(true);
     const newImageFileName = `readersden/${currentUser.uid}-${newImageFile.name}`;
@@ -151,12 +160,14 @@ function Form(props) {
 
       <SellerForm
         title={title}
+        qoutes = {qoutes}
         setTitle={setTitle}
         setAskingPrice={setAskingPrice}
         description={description}
         setDescription={setDescription}
         imageFileName={image}
         imageIsUploading={imageIsUploading}
+        setQuotes = {setQuotes}
         Image={
           image ? (
             <React.Suspense fallback={''}>
