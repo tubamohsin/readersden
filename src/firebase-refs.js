@@ -8,6 +8,9 @@ export function getImageRef(storage, imagePath) {
 }
 
 
+
+
+
 // export function getImageRef(storage, imagePath) {
 //   const xDimension = 200;
 //   const yDimension = 200;
@@ -25,10 +28,9 @@ export function getImageRef(storage, imagePath) {
 //     ),
 //     original: storage().ref(imagePath)
 //   };
-// }
+//  }
 
-export function getSellerRef(database, sellerId) {
-  return database().ref(`sellers/${sellerId}`);
+S  return database().ref(`sellers/${sellerId}`);
 }
 
 export function getDraftListRef(database) {
