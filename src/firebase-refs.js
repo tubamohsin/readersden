@@ -30,7 +30,8 @@ export function getImageRef(storage, imagePath) {
 //   };
 //  }
 
-S  return database().ref(`sellers/${sellerId}`);
+export function getSellerRef(database, sellerId) {
+  return database().ref(`sellers/${sellerId}`);
 }
 
 export function getDraftListRef(database) {
